@@ -1,0 +1,18 @@
+[project]
+name = "qipu-light-curtain"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+authors = [
+    { name = "emgardner", email = "gardner.ethan10@gmail.com" }
+]
+requires-python = ">=3.9"
+dependencies = [
+    "pydantic>=2.11.5",
+    "pymodbus>=3.8.6",
+    "pyserial>=3.5",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
