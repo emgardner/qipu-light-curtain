@@ -75,9 +75,22 @@ class IntelligentGrating:
         print(rr.registers)
         if rr.isError():
             return None
-        status_bits: List[int] = []
-        for reg in rr.registers:
-            for i in range(16):
-                status_bits.append((reg >> i) & 1)
-        return status_bits[:count_light_points]
+        bits = []
+        for ix, num in enumerate(rr.registers):
+            swapped = ((num & 0xFF00) >> 8) | ((num & 0x00FF) << 8)
+            for idx in range(0, 16): 
+                if idx + ix * 16 >= count_light_points:
+                    pass 
+                else:
+                    if swapped & (0x01 << idx):
+                        bits.append(1)
+                    else:
+                        bits.append(0)
+        print(bits, len(bits))
+        return bits
+        #status_bits: List[int] = []
+        #for reg in rr.registers:
+        #    for i in range(16):
+        #        status_bits.append((reg >> i) & 1)
+        #return status_bits[:count_light_points]
 

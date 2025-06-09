@@ -4,7 +4,7 @@ from qipu_light_curtain import IntelligentGrating, Parity
 async def main():
     # Create a new instance using the build method
     grating = await IntelligentGrating.build(
-        port="/dev/ttyUSB1",  # Serial port
+        port="/dev/tty.usbserial-2110",  # Serial port
         #address=0x0F,         # Device address
         #address=0x40,         # Device address
         address=0x41,         # Device address
@@ -41,8 +41,11 @@ async def main():
             lowest = await grating.read_lowest_blocked()
             highest = await grating.read_highest_blocked()
             quantity = await grating.read_blocked_quantity()
+            if lowest is not None and highest is not None:
+                print((highest - lowest) * 5, "mm Long")
+
             print(f"{lowest} {highest} {quantity}")
-            #await asyncio.sleep(.1)
+            await asyncio.sleep(.1)
 
     finally:
         # Always close the connection when done
